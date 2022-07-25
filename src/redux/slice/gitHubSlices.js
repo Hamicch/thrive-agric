@@ -1,6 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// const config = {
+//     headers: {
+//         Authorization: `Token ${process.env.GITHUB_TOKEN}`,
+//     },
+// };
+
 // Action for repos
 export const fetchUserReposAction = createAsyncThunk(
     "repos/list",
@@ -9,6 +15,7 @@ export const fetchUserReposAction = createAsyncThunk(
             // make request to github api
             const { data } = await axios.get(
                 `https://api.github.com/users/${user}/repos?per_page=10`
+                // config
             );
             return data;
         } catch (error) {
@@ -26,6 +33,7 @@ export const fetchUserProfileAction = createAsyncThunk(
             // make request to github api
             const { data } = await axios.get(
                 `https://api.github.com/users/${user}`
+                // config
             );
             return data;
         } catch (error) {
@@ -42,6 +50,7 @@ export const fetchUserOrganisationAction = createAsyncThunk(
             // make request to github api
             const { data } = await axios.get(
                 `https://api.github.com/users/${user}/orgs`
+                // config
             );
             return data;
         } catch (error) {
@@ -53,7 +62,7 @@ export const fetchUserOrganisationAction = createAsyncThunk(
 
 const repoSlices = createSlice({
     name: "repos",
-    initialState: { user: "hamicch" },
+    initialState: {},
     extraReducers: (builder) => {
         builder.addCase(fetchUserReposAction.pending, (state, action) => {
             state.loading = true;

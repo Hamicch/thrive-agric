@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import EmptyState from "./components/EmptyState";
 import Loading from "./components/LoadingState";
 import ProfileCard from "./components/ProfileCard";
 import RepositoryCard from "./components/RespositoryCard";
@@ -19,13 +20,15 @@ const App = () => {
         dispatch(fetchUserReposAction(user));
         dispatch(fetchUserProfileAction(user));
         dispatch(fetchUserOrganisationAction(user));
-    }, [dispatch]);
+    }, [user, dispatch]);
 
     const store = useSelector((state) => state?.repos);
     const { loading, organisation, repos, profile, error } = store;
+    console.log("ORG", organisation);
 
     const handleChange = (e) => {
-        setUser(e.target.value);
+        setUser(e?.target?.value);
+        console.log("USEr", user.length);
     };
 
     return (
@@ -50,8 +53,12 @@ const App = () => {
 
                     {loading ? (
                         <Loading />
-                    ) : error?.data.message ? (
-                        <h2 className='font-medium text-red-600'>{error}</h2>
+                    ) : error ? (
+                        <h2 className='flex justify-center items-center text-center mt-48 px-28 font-medium text-red-600'>
+                            {error?.data?.message}
+                        </h2>
+                    ) : user.length === 0 ? (
+                        <EmptyState />
                     ) : (
                         <div className='max-w-fit mx-auto mt-10'>
                             <div className='flex flex-wrap'>
@@ -68,7 +75,7 @@ const App = () => {
                                         repos?.map((repo) => (
                                             <RepositoryCard
                                                 repo={repo}
-                                                key={repo.id}
+                                                key={repo?.id}
                                             />
                                         ))}
                                 </div>

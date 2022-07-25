@@ -1,5 +1,4 @@
 const Search = ({ onChange, value }) => {
-    console.log("SEARCH", value);
     return (
         <input
             value={value}
