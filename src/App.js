@@ -24,11 +24,10 @@ const App = () => {
 
     const store = useSelector((state) => state?.repos);
     const { loading, organisation, repos, profile, error } = store;
-    console.log("ORG", organisation);
+    console.log("REPOS", repos);
 
     const handleChange = (e) => {
         setUser(e?.target?.value);
-        console.log("USEr", user.length);
     };
 
     return (
@@ -57,7 +56,7 @@ const App = () => {
                         <h2 className='flex justify-center items-center text-center mt-48 px-28 font-medium text-red-600'>
                             {error?.data?.message}
                         </h2>
-                    ) : user.length === 0 ? (
+                    ) : !user.length ? (
                         <EmptyState />
                     ) : (
                         <div className='max-w-fit mx-auto mt-10'>
@@ -72,10 +71,11 @@ const App = () => {
                                 {/* Repository list */}
                                 <div className='w-full lg:w-2/3 overflow-x-auto'>
                                     {repos?.name !== "Error" &&
-                                        repos?.map((repo) => (
+                                        repos?.map((repo, index) => (
                                             <RepositoryCard
                                                 repo={repo}
                                                 key={repo?.id}
+                                                index={index}
                                             />
                                         ))}
                                 </div>
