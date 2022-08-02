@@ -1,17 +1,16 @@
 const ProfileCard = ({ profile, organisation }) => {
-    console.log("organisation", organisation);
     return (
-        <div>
+        <div data-testid='prof-card'>
             <div className='flex justify-center'>
                 {/* Avatar image */}
                 <img
-                    className='w-56 h-56 rounded-full border-gray-800 border shadow-md'
+                    className='w-56 h-56 border border-gray-800 rounded-full shadow-md'
                     src={profile?.avatar_url}
                     alt=''
                 />
             </div>
             <div className='px-8 py-5'>
-                <h4 className='text-white font-bold text-2xl'>
+                <h4 className='text-2xl font-bold text-white'>
                     {profile?.name}
                 </h4>
                 <p className='text-xl text-[#8b949e]'>{profile?.login}</p>
@@ -23,7 +22,7 @@ const ProfileCard = ({ profile, organisation }) => {
                                 <a href={org.url} target='_blank'>
                                     <img
                                         src={org?.avatar_url}
-                                        className='w-5 h-5 rounded-full border-gray-800 border shadow-md'
+                                        className='w-5 h-5 border border-gray-800 rounded-full shadow-md'
                                     />
                                 </a>
                             ))}
